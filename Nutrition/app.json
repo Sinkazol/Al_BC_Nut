@@ -1,0 +1,26 @@
+{
+  "id": "5fc787ce-2138-4723-9b50-aeb83af3f69d",
+  "name": "Nutrition",
+  "publisher": "Mr.Espresso",
+  "version": "1.0.0.0",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "17.0.0.0",
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 90149
+    }
+  ],
+  "contextSensitiveHelpUrl": "https://projectZoltan.com/help/",
+  "showMyCode": true,
+  "runtime": "6.3"
+}

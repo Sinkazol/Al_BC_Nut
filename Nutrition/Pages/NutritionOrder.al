@@ -122,6 +122,7 @@ page 50103 NutritionOrder
                     end;
                 end;
             }
+
             action(Export)
             {
                 ApplicationArea = All;
@@ -144,40 +145,40 @@ page 50103 NutritionOrder
                 ShortCutKey = 'Alt+F9';
 
                 trigger OnAction()
-                VAR
-                    NutritionHEADER: Record NutritionHeader;
+                var
+                    NutritionHeader: Record NutritionHeader;
+                    PostedNutritionOrderHeader: Record PostNutritionHeader;
                     NutritionLine: Record NutritionLine;
-                    PostedNutritionHeader: Record PostNutritionHeader;
-                    PostedNutritionLine: Record PostNutritionLine;
-                    ActionPostText: TextConst ENG = 'Document will be posted. Are you continue?';
-                    DeleteAfterBookingQuestion: TextConst ENU = 'Do you want to delete the selected nutrition after successful bookment?';
-                    DeleteRecordAfterBooking: Boolean;
+                    PostedNutritionOrderLine: Record PostNutritionLine;
                     Answer: Boolean;
+                    PostingNo: Code[20];
                     NutritionSetupRec: Record NutritionSetup;
                     NoSeriesManagment: Codeunit NoSeriesManagement;
-                BEGIN
-                    if rec.Status = rec.Status::Close then begin
+                    ActionPostText: TextConst ENU = 'Document will be posted. Are you continue?';
 
-                        PostedNutritionHeader.TransferFields(Rec);
-                        PostedNutritionHeader."No." := rec."No.";
-                        PostedNutritionHeader.Insert();
-                        NutritionLine.SetRange("No.", NutritionLine."No.");
+                begin
+                    //  NutritionHeader.TESTFIELD(Status, NutritionHeader.Status::Close);
+                    if CONFIRM(ActionPostText, TRUE) THEN BEGIN
+                        rec.CalcFields(SumProtein, SumFat, SumCarbohydrate, SumKcal, SumKJ);
+                        PostedNutritionOrderHeader.TransferFields(Rec);
+                        NutritionSetupRec.Get();
+                        PostingNo := NoSeriesManagment.GetNextNo(NutritionSetupRec.ArhivedNoCode, Today, true);
+                        PostedNutritionOrderHeader."No." := PostingNo;
+                        PostedNutritionOrderHeader.Insert();
+                        NutritionLine.SetRange(NutritionNo, rec."No.");
                         if NutritionLine.FindSet() then begin
                             repeat
-                                PostedNutritionLine.TransferFields(NutritionLine);
-                                PostedNutritionLine.NutritionNo := PostedNutritionHeader."No.";
-                                PostedNutritionLine.Insert();
+                                PostedNutritionOrderLine.TransferFields(NutritionLine);
+                                PostedNutritionOrderLine.NutritionNo := PostingNo;
+                                PostedNutritionOrderLine.Insert();
                                 if Answer = true then NutritionLine.Delete();
                             until NutritionLine.Next() = 0;
-
+                            Message('Post successfully');
                         end;
+                        Answer := Dialog.Confirm('Would you like to delete these order?');
                         if Answer = true then rec.Delete();
-                    end else begin
-                        Error('You must close the nutrition order!');
-                    end;
-                end;
-
-
+                    END
+                END;
 
 
             }

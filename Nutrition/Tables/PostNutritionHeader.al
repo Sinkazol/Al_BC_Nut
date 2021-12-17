@@ -86,7 +86,7 @@ table 50105 PostNutritionHeader
         NoSeriesManagment: Codeunit NoSeriesManagement;
     begin
 
-        IF "No." = ' ' THEN BEGIN
+        IF "No." = '' THEN BEGIN
             NutritionSetupRec.Get();
             "No." := NoSeriesManagment.GetNextNo(NutritionSetupRec.SeriesNoCode, Today, true);
 

@@ -4,7 +4,6 @@ page 50105 PostedNutritionOrder
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = PostNutritionHeader;
-    DelayedInsert = true;
     RefreshOnActivate = true;
     InsertAllowed = false;
 
@@ -50,7 +49,7 @@ page 50105 PostedNutritionOrder
             }
             group(Details)
             {
-                part(NutritionOrderSubform; NutritionOrderSubform)
+                part(PostedNutritionOrderSubform; PostedNutritionOrderSubform)
                 {
                     ApplicationArea = All;
                     SubPageLink = NutritionNo = field("No.");

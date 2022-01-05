@@ -24,6 +24,7 @@ page 50103 NutritionOrder
                     ApplicationArea = All;
 
 
+
                 }
                 field(CustomerName; rec.CustomerName)
                 {

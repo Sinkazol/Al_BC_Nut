@@ -21,14 +21,7 @@ table 50103 NutritionLine
             TableRelation = Macronutrients;
             trigger OnValidate()
             begin
-                if MacronutrientRec.Get(rec.MacronutrienNo) then begin
-                    rec.UnitOfMesure := MacronutrientRec.UnitOfMesure;
-                    rec.Protein := MacronutrientRec.Protein * Quantity;
-                    rec.Fat := MacronutrientRec.Fat * Quantity;
-                    rec.Carbohydrate := MacronutrientRec.Carbohydrate * Quantity;
-                    rec.KJ := MacronutrientRec.KJ * Quantity;
-                    rec.Kcal := MacronutrientRec.Kcal * Quantity;
-                end;
+                CalculateValues();
             end;
         }
         field(4; Description; Text[120])
@@ -42,16 +35,8 @@ table 50103 NutritionLine
             DataClassification = ToBeClassified;
             trigger OnValidate()
             begin
-                if MacronutrientRec.Get(rec.MacronutrienNo) then begin
-                    rec.UnitOfMesure := MacronutrientRec.UnitOfMesure;
-                    rec.Protein := MacronutrientRec.Protein * Quantity;
-                    rec.Fat := MacronutrientRec.Fat * Quantity;
-                    rec.Carbohydrate := MacronutrientRec.Carbohydrate * Quantity;
-                    rec.KJ := MacronutrientRec.KJ * Quantity;
-                    rec.Kcal := MacronutrientRec.Kcal * Quantity;
-                end;
+                CalculateValues();
             end;
-
         }
         field(6; Protein; Decimal)
         {
@@ -92,27 +77,18 @@ table 50103 NutritionLine
         }
     }
 
+    local procedure CalculateValues()
     var
         MacronutrientRec: Record Macronutrients;
-
-    trigger OnInsert()
     begin
-
+        IF Quantity <> 0 THEN
+            if MacronutrientRec.Get(rec.MacronutrienNo) then begin
+                rec.UnitOfMesure := MacronutrientRec.UnitOfMesure;
+                rec.Protein := MacronutrientRec.Protein * Quantity;
+                rec.Fat := MacronutrientRec.Fat * Quantity;
+                rec.Carbohydrate := MacronutrientRec.Carbohydrate * Quantity;
+                rec.KJ := MacronutrientRec.KJ * Quantity;
+                rec.Kcal := MacronutrientRec.Kcal * Quantity;
+            end;
     end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

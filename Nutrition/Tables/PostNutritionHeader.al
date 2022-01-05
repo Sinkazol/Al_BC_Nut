@@ -75,6 +75,18 @@ table 50105 PostNutritionHeader
         {
             Clustered = true;
         }
+        key(Key2; Day)
+        {
+
+        }
+        key(Key3; CustomerName)
+        {
+
+        }
+        key(Key4; CustomerId)
+        {
+
+        }
     }
 
     var

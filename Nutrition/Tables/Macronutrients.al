@@ -44,6 +44,7 @@ table 50100 Macronutrients
         {
             DataClassification = ToBeClassified;
 
+
         }
     }
 
@@ -54,4 +55,5 @@ table 50100 Macronutrients
             Clustered = true;
         }
     }
+
 }

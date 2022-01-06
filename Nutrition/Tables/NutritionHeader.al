@@ -44,35 +44,35 @@ table 50102 NutritionHeader
         {
             Caption = 'Sum Protein';
             FieldClass = FlowField;
-            CalcFormula = sum(Macronutrients.Protein where("No." = field("No.")));
+            CalcFormula = sum(NutritionLine.Protein where(NutritionNo = field("No.")));
 
         }
         field(7; SumFat; Decimal)
         {
             Caption = 'Sum Fat';
             FieldClass = FlowField;
-            CalcFormula = sum(Macronutrients.Fat where("No." = field("No.")));
+            CalcFormula = sum(NutritionLine.Fat where(NutritionNo = field("No.")));
 
         }
         field(8; SumCarbohydrate; Decimal)
         {
             Caption = 'Sum Carbohydrate';
             FieldClass = FlowField;
-            CalcFormula = sum(Macronutrients.Carbohydrate where("No." = field("No.")));
+            CalcFormula = sum(NutritionLine.Carbohydrate where(NutritionNo = field("No.")));
 
         }
         field(9; SumKJ; Decimal)
         {
             Caption = 'Sum KJ';
             FieldClass = FlowField;
-            CalcFormula = sum(Macronutrients.Carbohydrate where("No." = field("No.")));
+            CalcFormula = sum(NutritionLine.Carbohydrate where(NutritionNo = field("No.")));
 
         }
         field(10; SumKcal; Decimal)
         {
             Caption = 'Sum Carbohydrate';
             FieldClass = FlowField;
-            CalcFormula = sum(Macronutrients.Carbohydrate where("No." = field("No.")));
+            CalcFormula = sum(NutritionLine.Carbohydrate where(NutritionNo = field("No.")));
 
         }
         field(11; DeleteAfterPost; Boolean)
